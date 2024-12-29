@@ -1,8 +1,6 @@
 name: "CI: Build Test"
 
-on: 
-  workflow_dispatch:
-
+on: workflow_dispatch
 
 env:
   QT_VERSION: 5.15.2
