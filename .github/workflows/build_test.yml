@@ -1,6 +1,8 @@
 name: "CI: Build Test"
 
-on: [push, pull_request]
+on: 
+  workflow_dispatch:
+
 
 env:
   QT_VERSION: 5.15.2
