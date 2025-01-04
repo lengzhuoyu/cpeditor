@@ -21,7 +21,7 @@
 #include <QPalette>
 #include <QSettings>
 #include <QStyle>
-#include <QStyleFactory>
+#include <QFile>
 
 namespace Core
 {
