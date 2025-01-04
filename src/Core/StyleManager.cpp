@@ -18,10 +18,10 @@
 #include "Core/StyleManager.hpp"
 #include "Core/EventLogger.hpp"
 #include <QApplication>
+#include <QFile>
 #include <QPalette>
 #include <QSettings>
 #include <QStyle>
-#include <QFile>
 
 namespace Core
 {
