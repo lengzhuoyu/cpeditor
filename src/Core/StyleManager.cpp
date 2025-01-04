@@ -57,12 +57,12 @@ bool StyleManager::setStyle(const QString &styleName)
     currentStyle = styleName;
 
 #ifdef Q_OS_WIN
-    if (styleName == "Auto Fusion")
+    if (styleName == "Auto Fluent")
     {
         if (isWindowsDarkThemeForApps())
-            currentStyle = "Dark Fusion";
+            currentStyle = "Dark Fluent";
         else
-            currentStyle = "Light Fusion";
+            currentStyle = "Light Fluent";
     }
 #endif
 
@@ -72,9 +72,27 @@ bool StyleManager::setStyle(const QString &styleName)
     {
         qApp->setStyle(defaultStyle);
     }
-    else if (currentStyle == "Light Fusion" || currentStyle == "Dark Fusion")
+    else if (currentStyle == "Light Fluent")
     {
-        qApp->setStyle("Fusion");
+        QString strQssFile = "light.qss";
+        if (QFile::exists(strQssFile))
+        {
+            QFile qFile(strQssFile);
+            qFile.open(QFile::ReadOnly);
+            qApp->setStyleSheet(qFile.readAll());
+            qFile.close();
+        }
+    }
+    else if (currentStyle == "Dark Fluent")
+    {
+        QString strQssFile = "dark.qss";
+        if (QFile::exists(strQssFile))
+        {
+            QFile qFile(strQssFile);
+            qFile.open(QFile::ReadOnly);
+            qApp->setStyleSheet(qFile.readAll());
+            qFile.close();
+        }
     }
     else
     {
@@ -86,19 +104,12 @@ bool StyleManager::setStyle(const QString &styleName)
 
 QStringList StyleManager::styleList()
 {
-    auto list = QStyleFactory::keys();
-
-    if (list.contains("Fusion"))
-    {
-        list.removeAll("Fusion");
-        list.append("Light Fusion");
-        list.append("Dark Fusion");
-
+    QStringList list = {};
+    list.append("Light Fluent");
+    list.append("Dark Fluent");
 #ifdef Q_OS_WIN // On Windows we can check if we have dark theme enabled from system.
-        list.append("Auto Fusion");
+    list.append("Auto Fluent");
 #endif
-    }
-
     list.prepend("default");
 
     return list;
@@ -115,15 +126,15 @@ bool StyleManager::isWindowsDarkThemeForApps()
 
 void StyleManager::setPalette(const QString &styleName)
 {
-    if (styleName == "Light Fusion")
-        qApp->setPalette(lightFusionPalette());
-    else if (styleName == "Dark Fusion")
-        qApp->setPalette(darkFusionPalette());
+    if (styleName == "Light Fluent")
+        qApp->setPalette(lightFluentPalette());
+    else if (styleName == "Dark Fluent")
+        qApp->setPalette(darkFluentPalette());
     else
         qApp->setPalette(defaultPalette);
 }
 
-QPalette StyleManager::darkFusionPalette()
+QPalette StyleManager::darkFluentPalette()
 {
     QPalette darkPalette = defaultPalette;
 
@@ -150,7 +161,7 @@ QPalette StyleManager::darkFusionPalette()
     return darkPalette;
 }
 
-QPalette StyleManager::lightFusionPalette()
+QPalette StyleManager::lightFluentPalette()
 {
     QPalette lightPalette = defaultPalette;
 

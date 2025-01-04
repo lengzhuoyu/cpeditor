@@ -29,6 +29,7 @@ class StyleManager
   public:
     static void setDefault();
     static bool setStyle(const QString &styleName);
+    static bool setStyleSheet(const QString &styleName);
     static QStringList styleList();
 
   private:
@@ -36,9 +37,9 @@ class StyleManager
 
     static void setPalette(const QString &styleName);
 
-    static QPalette darkFusionPalette();
+    static QPalette darkFluentPalette();
 
-    static QPalette lightFusionPalette();
+    static QPalette lightFluentPalette();
 
   private:
     static QPalette defaultPalette;
